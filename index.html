@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kindness Ripple | The Daily Kindness Ripple Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZP2K50531"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NZP2K50531');
+</script>
+
+    <style>
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .acts {
+            margin-bottom: 20px;
+        }
+
+        .share-container {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .share-container label {
+            margin-right: 10px;
+        }
+
+        .share-container button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .share-container textarea {
+            margin-top: 10px;
+            width: 100%;
+            resize: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        a {
+          color: #1556ab;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Today's Kindness Ripple | <span id="date"></span></h1>
+        <div style="text-align: center;">
+        	<p><a href="#" id="about-link">About the Kindness Ripple Project</a> | <a href="https://www.savirsingh.com/projects/kindness-ripple/">Read the Blog Post</a> | <a target="_blank" href="https://www.buymeacoffee.com/savir">Donate</a></p>
+        </div>
+        <ol>
+        <div id="acts" class="acts">
+
+        </div>
+        </ol>
+        <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>About the Kindness Ripple Project</h2>
+            <p>Every day at 12AM UTC, three new acts are added to the Daily Kindness Ripple movement. This is a research project aimed at understanding the link between being part of such a kindness movement and participant mood over time.</p>
+            <p>The Kindness Ripple is more than just a website; it's a movement. It's about taking a moment to think about others and make a difference in their lives. It's about spreading joy and happiness wherever you go, and watching as that joy spreads from person to person, creating a ripple effect that can change the world. Let's use this research project as a reason to bring smiles to others' faces. The purpose of this project is to see if a simple website like this can improve everyone's daily lives. If this site catches the attention of enough people, I plan to publish the first results of this study by the end of 2024.</p>
+            <p>So join me, and let's make the world a kinder, more compassionate place, three acts of kindness at a time :)</p>
+            <p>- Savir Singh, forever researcher & fellow human being.</p>
+        </div>
+    </div>
+    <div class="mood-container">
+    <h4>Rate your mood today:</h4>
+    <form id="ratingForm" action="https://kindnessripple.pythonanywhere.com" method="POST">
+        <label for="rating">Select a rating:</label>
+        <select id="rating" name="rating">
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+        <div class="share-container">
+    <h4>Share & spread the word about the daily Kindness Ripple!</h4>
+    <label>Acts you completed:</label><br>
+    <input type="checkbox" id="act1" name="act1" value="Act 1">
+    <label for="act1">Act 1</label><br>
+    <input type="checkbox" id="act2" name="act2" value="Act 2">
+    <label for="act2">Act 2</label><br>
+    <input type="checkbox" id="act3" name="act3" value="Act 3">
+    <label for="act3">Act 3</label><br>
+    <button id="copy-button">Copy Shareable Text</button>
+</div>
+
+<p>&copy 2024 Savir Singh. All rights reserved.</p>
+        <p><a href="/kindness-ripple/privacy">Privacy Policy</a></p>
+
+        
+    </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var link = document.getElementById("about-link");
+        var span = document.getElementsByClassName("close")[0];
+
+        link.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+    fetch('https://kindnessripple.pythonanywhere.com')
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // Log the data to see its structure
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(data, 'text/html');
+        const content = htmlDoc.querySelector('ol').innerHTML;
+        document.getElementById('acts').innerHTML = content;
+    })
+    .catch(error => console.error('Error fetching data:', error));
+    </script>
+    <script>
+        // Fetch data from the API
+        fetch('https://kindnessripple.pythonanywhere.com/server-date')
+            .then(response => response.text())
+            .then(data => {
+                // Update the h1 tag with the fetched data
+                document.getElementById('date').textContent = data;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+    <script>
+        document.getElementById('copy-button').addEventListener('click', function() {
+    // Get the selected acts
+    var selectedActs = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+
+    // Fetch the current date from the server
+    fetch('https://kindnessripple.pythonanywhere.com/server-date')
+        .then(response => response.text())
+        .then(date => {
+            // Create the share text including the current date and the stored mood rating
+            var moodRating = localStorage.getItem('moodRating');
+            var shareText = `I completed ${selectedActs.join(', ')} on ${date}'s Kindness Ripple with a ${moodRating}-star mood rating! What did you do? https://www.savirsingh.com/kindness-ripple`;
+
+            // Copy the share text to the clipboard
+            navigator.clipboard.writeText(shareText).then(function() {
+                alert('Copied text to clipboard, you can paste on social media or elsewhere!');
+            }, function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        })
+        .catch(error => console.error('Error fetching current date:', error));
+});
+    </script>
+    <script>
+        document.getElementById('ratingForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    var rating = document.getElementById('rating').value;
+
+    // Store the mood rating in local storage
+    localStorage.setItem('moodRating', rating);
+
+    // Submit the form
+    this.submit();
+});
+    </script>
+</body>
+</html>
